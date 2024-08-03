@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stopwatch</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #222;
+			color: #fff;
+		}
+		.stopwatch {
+			text-align: center;
+			margin-top: 50px;
+			padding: 20px;
+			border-radius: 10px;
+			background-color: #333;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		}
+		#display {
+			font-size: 64px;
+			margin-bottom: 20px;
+			color: #66ff00;
+		}
+		.buttons {
+			margin-bottom: 20px;
+		}
+		.button {
+			width: 100px;
+			height: 40px;
+			margin: 0 10px;
+			font-size: 18px;
+      cursor: pointer;
+			border: none;
+			border-radius: 5px;
+			background-color: #007bff;
+			color: #fff;
+		}
+		.button:hover {
+			background-color: #0056b3;
+		}
+	</style>
+</head>
+<body>
+	<div class="stopwatch">
+		<div id="display">00:00:00</div>
+		<div class="buttons">
+			<button id="start-btn" class="button">Start</button>
+			<button id="stop-btn" class="button">Stop</button>
+			<button id="reset-btn" class="button">Reset</button>
+		</div>
+	</div>
+
+	<script>
+		let timer = null;
+		let seconds = 0;
+		let minutes = 0;
+		let hours = 0;
+
+		document.getElementById("start-btn").addEventListener("click", start);
+		document.getElementById("stop-btn").addEventListener("click", stop);
+    document.getElementById("reset-btn").addEventListener("click", reset);
+
+function start() {
+  timer = setInterval(() => {
+    seconds++;
+    if (seconds >= 60) {
+      seconds = 0;
+      minutes++;
+    }
+    if (minutes >= 60) {
+      minutes = 0;
+      hours++;
+    }
+    document.getElementById("display").innerText = 
+      `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+  }, 1000);
+}
+
+function stop() {
+  clearInterval(timer);
+}
+
+function reset() {
+  clearInterval(timer);
+  seconds = 0;
+  minutes = 0;
+  hours = 0;
+  document.getElementById("display").innerText = "00:00:00";
+}
+
+function pad(time) {
+  return time.toString().padStart(2, "0");
+}
+</script>
+</body>
+</html>
+
+
